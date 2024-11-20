@@ -1,0 +1,228 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none; /* Disable text selection in Chrome/Safari */
+    -moz-user-select: none;    /* Disable text selection in Firefox */
+    -ms-user-select: none;     /* Disable text selection in Internet Explorer/Edge */
+    user-select: none;         /* Disable text selection in all modern browsers */
+}
+
+/* Banner Styling */
+.banner {
+    width: 100%;
+    background-color: #333333;
+    color: #C8A563;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.banner-title {
+    font-size: 24px;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+/* Main container for symmetry */
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px auto;
+    width: 80%; /* Adjust this based on your screen size */
+}
+
+/* Left Section: Sliders and Player Input */
+.left-section {
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align sliders to the left */
+}
+
+#playerName, #evaluationDate, #savePlayer {
+    width: 100%; /* Make the input fields and button take up full width */
+    margin-bottom: 20px; /* Add spacing between inputs */
+}
+
+.slider-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Bold and Styled Slider Values */
+.slider-group span[id$="Value"] {
+    font-weight: bold;
+    font-size: 14px; /* Slightly larger for visibility */
+    color: #333; /* Ensure it matches branding or stands out */
+    margin-left: 10px; /* Add spacing from the slider */
+}
+
+
+/* Right Section: Chart and Other Elements */
+.right-section {
+    flex-basis: 60%; /* Make chart area wider */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the chart and other elements */
+}
+
+#playerList {
+    width: 300px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#radarChart {
+    width: 600px;
+    height: 600px;
+    margin-bottom: 20px;
+}
+
+/* Comment Section */
+#comments {
+    width: 100%;
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Download Button */
+#downloadChart {
+    width: 200px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Sliders Styling */
+input[type="range"] {
+    -webkit-appearance: none; /* For Chrome, Safari */
+    -moz-appearance: none;    /* For Firefox */
+    appearance: none;         /* Standard property */
+    width: 100%;
+    height: 8px;
+    background: #ddd; /* Gray background for slider */
+    border-radius: 5px; /* Rounded corners for the slider track */
+    outline: none;
+    border: 2px solid #333333; /* Border color to match branding */
+}
+
+/* Change the thumb (slider button) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* For Chrome, Safari */
+    appearance: none;         /* Standard property */
+    width: 20px;
+    height: 20px;
+    background: #C8A563; /* Gold color for the slider thumb */
+    border-radius: 50%; /* Make the thumb rounded */
+    cursor: pointer;
+    border: 2px solid #333333; /* Dark border for better visibility */
+}
+
+input[type="range"]::-moz-range-thumb {
+    -moz-appearance: none;    /* For Firefox */
+    appearance: none;         /* Standard property */
+    width: 20px;
+    height: 20px;
+    background: #C8A563; /* Gold color for the slider thumb */
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #333333;
+}
+
+/* Center content with uniform padding */
+.center-content {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Responsive adjustments for smaller screens (up to 768px) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        width: 95%; /* Adjust to give elements room to breathe */
+        margin: 20px auto;
+    }
+
+    .left-section, .right-section {
+        width: 100%; /* Full width for smaller screens */
+        margin-bottom: 20px;
+    }
+
+    /* Font sizes and padding for inputs and buttons */
+    #playerName, #evaluationDate, #savePlayer, #playerList, #downloadChart, #comments {
+        font-size: 16px; /* Better readability on smaller screens */
+        padding: 10px;
+        width: 90%;
+    }
+
+    /* Slider and chart adjustments for mobile */
+    input[type="range"] {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    #radarChart {
+        width: 90%;
+        height: auto;
+        max-width: 350px; /* Prevent chart from becoming too large on tablets */
+    }
+
+  
+
+}
+
+/* Tooltip Icon Styling */
+.tooltip-icon {
+    display: inline-block;
+    width: 16px; /* Maintain reduced size for alignment */
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: help;
+    margin-left: 5px;
+    position: relative;
+    vertical-align: middle; /* Aligns with text */
+}
+
+/* Tooltip Text Styling */
+.tooltip-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 150%; /* Position below the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 16px 24px; /* More padding for a cleaner look */
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.6; /* Maintain readability for longer text */
+    white-space: normal; /* Allow wrapping */
+    max-width: 750px; /* Further increased width for spacious layout */
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for clarity */
+}
+
+/* Tooltip Visibility on Hover */
+.tooltip-icon:hover::after {
+    opacity: 1;
+}
