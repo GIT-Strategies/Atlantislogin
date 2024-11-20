@@ -1,3 +1,57 @@
+// Auth0 Configuration
+var auth0 = null;
+
+async function configureClient() {
+  auth0 = await createAuth0Client({
+    domain: "dev-c3x7d417jhdtpgg1.us.auth0.com", // Replace with your Auth0 domain
+    client_id: "vkcmDNuvOuWeGG5zYkeQa1wQnl4cagzp"   // Replace with your Auth0 client ID
+  });
+}
+
+// Function to log in the user
+async function login() {
+  await auth0.loginWithRedirect({
+    redirect_uri: window.location.origin
+  });
+}
+
+// Function to handle the authentication
+async function handleAuthentication() {
+  const isAuthenticated = await auth0.isAuthenticated();
+
+  if (isAuthenticated) {
+    // User is authenticated, proceed to load your application
+    console.log('User successfully logged in.');
+    document.getElementById('app-content').style.display = 'block';
+  } else {
+    // User is not logged in, redirect to login page
+    await login();
+  }
+}
+
+// When the page loads
+window.onload = async () => {
+  await configureClient();
+  await handleAuthentication();
+};
+
+async function handleAuthentication() {
+    const isAuthenticated = await auth0.isAuthenticated();
+  
+    if (isAuthenticated) {
+      document.getElementById('app-content').style.display = 'block';
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('logout').style.display = 'block';
+    } else {
+      document.getElementById('app-content').style.display = 'none';
+      document.getElementById('login').style.display = 'block';
+      document.getElementById('logout').style.display = 'none';
+      await login();
+    }
+  }
+  
+
+//* Program Script Begins *//
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('downloadChart').addEventListener('click', downloadChart);
     document.getElementById('savePlayer').addEventListener('click', savePlayerData);
@@ -291,3 +345,10 @@ document.addEventListener('keydown', function (e) {
 })();
 
 });
+
+// Function to log out the user
+async function logout() {
+    await auth0.logout({
+      returnTo: window.location.origin
+    });
+  }
